@@ -16,19 +16,17 @@ const envExists = fs.existsSync(envPath);
 if (!envExists) {
   console.log('📝 Creating .env file...');
   const envContent = `# Database Configuration
-DATABASE_URL=postgresql://postgres.wakskrjtocclupdxywcy:Patel@supa123@aws-0-us-east-2.pooler.supabase.com:6543/postgres
-
+DATABASE_URL = Enter the URL from supabasd
 # Supabase Configuration (for frontend)
-VITE_SUPABASE_URL=https://wakskrjtocclupdxywcy.supabase.co
-VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indha3Nrcmp0b2NjbHVwZHh5d2N5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM1MDY3NjEsImV4cCI6MjA2OTA4Mjc2MX0.o5Ssodq8GsBsunUytOQMe7iPdNp9_-FEGTyylu6LvsY
-
+VITE_SUPABASE_URL = Enter Vite URL
+VITE_SUPABASE_ANON_KEY = Enter Anon Key
 # OpenAI API Key (for AI question generation)
-OPENAI_API_KEY=your_openai_api_key_here
+OPENAI_API_KEY = your_openai_api_key_here
 
 # Email Configuration (optional)
-EMAIL_HOST=smtp.gmail.com
-EMAIL_USER=your_email@gmail.com
-EMAIL_PASS=your_app_password
+EMAIL_HOST = smtp.gmail.com
+EMAIL_USER = your_email@gmail.com
+EMAIL_PASS = your_app_password
 
 # Port Configuration
 PORT=5000
