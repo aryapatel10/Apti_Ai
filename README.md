@@ -1,74 +1,150 @@
-# MCQ Assessment Platform
+# 🧠 AI-Powered Recruitment Platform
 
-An AI-powered MCQ-based recruitment assessment platform with glassmorphism design.
+An AI-powered recruitment platform designed to streamline candidate assessments through **Multiple Choice Questions (MCQs)**.  
+The platform allows **Admins (Evaluators/Recruiters)** to create assessments tailored to both aptitude and technical skills required for specific roles.  
+Admins can either select from a pre-existing question bank or generate new ones with AI assistance.  
 
-## Quick Start (Local Development)
+Built with **Supabase** for authentication, storage, and data management.  
 
-### 1. Prerequisites
-- Node.js (v18 or higher)
-- npm package manager
+---
 
-### 2. Setup
-```bash
-# Install dependencies
-npm install
+## 👥 User Roles
 
-# Run setup script (creates .env and sets up database)
-node setup-local.js
+### 1. Admin (Evaluator/Recruiter)
+- **Authentication**: Secure login with Supabase Authentication (email/password).  
+- **Assessment Creation**:  
+  - Configure total assessment time and time per question.  
+  - Select from a question bank or generate new AI-powered questions.  
+  - Define correct/incorrect answer options for automatic grading.  
+- **MCQ Evaluation**: Automatic grading with detailed evaluation reports.  
+- **Assessment Link Generation**: Create unique, 48-hour valid links for candidates.  
+- **View Results**: See candidate scores, feedback, and performance breakdowns.  
 
-# Start development server
-npm run dev
-```
+### 2. Candidate
+- **Access**: Receives a unique 48-hour valid link via email.  
+- **Interface**: One question at a time, with a countdown timer.  
+- **Completion**: Assessment cannot be paused or restarted once begun.  
+- **Feedback**: Automatic score and performance summary after completion.  
 
-### 3. Access the Platform
-- Open: http://localhost:5000
-- Admin login: admin@demo.com (any password)
+---
 
-## Manual Setup
+## 🔗 Assessment Link Logic
+- **Unique Link**: Each assessment link is a unique `UUID`.  
+- **Link Expiry**: Expires 48 hours after generation.  
+- **Access Control**: Expired links show an "Expired" message.  
 
-If you prefer to set up manually:
+---
 
-### 1. Create .env file
-```bash
-DATABASE_URL=postgresql://postgres.wakskrjtocclupdxywcy:Patel@supa123@aws-0-us-east-2.pooler.supabase.com:6543/postgres
-VITE_SUPABASE_URL=https://wakskrjtocclupdxywcy.supabase.co
-VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indha3Nrcmp0b2NjbHVwZHh5d2N5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM1MDY3NjEsImV4cCI6MjA2OTA4Mjc2MX0.o5Ssodq8GsBsunUytOQMe7iPdNp9_-FEGTyylu6LvsY
-OPENAI_API_KEY=your_openai_api_key_here
-```
+## ⏱ Timing Configuration
+- **Admin Inputs**:  
+  - Total Assessment Time (e.g., 30 min).  
+  - Time per Question (e.g., 2 min).  
+- **Dynamic Timer**: Countdown timer per question + total duration.  
+  - Auto-move to next question once time expires.  
 
-### 2. Install and Setup
-```bash
-npm install
-npm run db:push
-npm run dev
-```
+---
 
-## Features
+## 🧠 Question Generation
+- **Pre-existing Bank**: Aptitude & role-specific technical skills.  
+- **AI-Generated**:  
+  - Based on **Job Role** (e.g., Software Engineer, Data Scientist).  
+  - Aptitude (logical, analytical).  
+  - Technical (role-specific).  
+- **Format**:  
+  - MCQs with 3–4 options.  
+  - One correct answer + distractors.  
+  - Auto-graded.  
 
-- **Admin Dashboard**: Create and manage assessments
-- **AI Question Generation**: Powered by OpenAI
-- **Timed Assessments**: Secure candidate testing
-- **Email Invitations**: Send assessment links to candidates
-- **Real-time Results**: Automatic grading and analytics
-- **Glassmorphism UI**: Modern, professional design
+---
 
-## Project Structure
+## 📤 Admin Interface Features
+- **Dashboard**:  
+  - Create new assessments.  
+  - Manage question bank.  
+  - Generate candidate assessment links.  
+  - View performance reports:  
+    - Candidate Name & Email  
+    - Total Score  
+    - Correct/Incorrect answers  
+    - Detailed feedback  
 
-```
-├── client/src/          # React frontend
-├── server/              # Express backend  
-├── shared/              # Shared types and schemas
-├── LOCAL_SETUP.md       # Detailed setup guide
-└── setup-local.js       # Automated setup script
-```
+---
 
-## Available Scripts
+## 📩 Candidate Email Invitation
+Triggered when an assessment is created:  
+- Personalized greeting.  
+- Role information.  
+- Unique 48-hour valid link.  
+- Instructions & time constraints.  
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run db:push` - Update database schema
-- `node setup-local.js` - Automated local setup
+---
 
-## Need Help?
+## 📊 Report & Evaluation
+- **Automatic Grading**: Score + per-question feedback.  
+- **Admin Feedback**: Optional personalized comments.  
 
-Check `LOCAL_SETUP.md` for detailed setup instructions and troubleshooting.
+---
+
+## 🗃 Database & Storage (Supabase)
+- **Authentication**: Secure email/password with JWT.  
+- **Storage**:  
+  - Resumes & job descriptions stored in buckets.  
+  - Signed URLs (48-hour validity).  
+- **Schema**:  
+  - `Users` → Admin & Candidate data.  
+  - `Assessments` → Metadata (time, questions, links).  
+  - `Results` → Scores, answers, feedback.  
+
+---
+
+## 🚨 Edge Cases
+- **Expired Link** → "Expired" message, no access.  
+- **Duplicate Links** → Each link is unique and one-time use.  
+
+---
+
+## 🎨 UI/UX Design
+- **Glassmorphism + Dark Theme**  
+- **Primary Colors**:  
+  - Navy Blue → Headers, navigation.  
+  - Green → Buttons, progress bars.  
+- **Typography**: White/Light Grey for contrast.  
+
+---
+
+## 🛠 Tech Stack
+- **Frontend**: React.js, Bootstrap, Glassmorphism styling  
+- **Backend**: Node.js + Express  
+- **Authentication**: Supabase Auth (email/password)  
+- **Database**: Supabase Database  
+- **Storage**: Supabase Storage (resumes, job descriptions)  
+- **AI Integration**: For role-specific question generation  
+- **Grading**: Auto-evaluation logic with weights  
+
+---
+
+## 🔑 Key Technical Flows
+
+### 1. Authentication Flow
+- JWT-based auth with Supabase.  
+- Role-based access (Admin vs Candidate).  
+- Protected routes for dashboards.  
+
+### 2. Assessment Creation
+- Multi-step wizard for setup.  
+- AI-assisted question generation.  
+- Question bank management.  
+
+### 3. Assessment Taking
+- Token-based link validation.  
+- Real-time timers & auto-submission.  
+- Progress tracking & recovery.  
+
+---
+
+## 🚀 Future Enhancements
+- Adaptive difficulty based on candidate performance.  
+- Integration with ATS (Applicant Tracking Systems).  
+- Advanced analytics & reporting dashboards.  
+
+---
